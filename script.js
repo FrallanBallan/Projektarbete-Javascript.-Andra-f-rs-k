@@ -237,7 +237,7 @@ function displayQuestion() {
           }
 
           if (selectedCheckboxes === 2) {
-            if (selectedCheckboxes === correctAnswers) {
+            if (selectedValues === correctAnswers) {
               score++;
               scoreDisplay.textContent = `${score}`;
               checkBoxes.parentNode.style.backgroundColor = "lightgreen";
@@ -245,7 +245,7 @@ function displayQuestion() {
               checkBoxes.parentNode.style.backgroundColor = "salmon";
             }
           }
-          console.log(selectedCheckboxes, selectedValues);
+          console.log(selectedValues, correctAnswers);
         });
       });
     }
