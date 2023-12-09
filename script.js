@@ -203,7 +203,7 @@ function displayQuestion() {
       //CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES
     } else if (quiz[index].type === "checkbox") {
       let selectedCheckboxes = 0; //En array att spara checkboxarna i. Borde gjort array i objektet. Visste inte att det gick.
-      let checkboxesArray = [];
+
       let selectedValues = [];
 
       answers.forEach((answer) => {
@@ -217,7 +217,7 @@ function displayQuestion() {
 
         card.appendChild(checkBoxes);
         card.appendChild(labelCheckbox);
-        checkboxesArray.push(checkBoxes);
+
         // lägger in i arrayen
 
         console.log(`question_${index}`);
