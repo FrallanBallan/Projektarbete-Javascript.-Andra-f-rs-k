@@ -34,7 +34,7 @@ const quiz = [
   {
     question:
       "What pastry is filled with almond paste and sometimes topped with icing and sliced almonds?",
-    answers: ["Croissant", "False"],
+    answers: ["True", "False"],
     correctAnswer: "False",
     type: "trueFalse",
   },
@@ -107,17 +107,21 @@ startButton.addEventListener("click", displayQuestion);
 //Medel
 //Hämtar alla card element
 let cards = document.querySelectorAll(".card");
-
+//Test
 quiz.forEach((question, index) => {
   console.log(question, index);
 });
+
+//Globala variablar
+let score = 0;
+let scoreDisplay = document.querySelector("#scoreDisplay");
 
 function displayQuestion() {
   cards.forEach((card, index) => {
     console.log(card, index);
     let question = quiz[index].question;
     let answers = quiz[index].answers;
-    card.textContent = question + answers;
+    card.textContent = question;
     console.log(quiz[index]);
 
     // TrueFalse knappar  TrueFalse knappar TrueFalse knappar  TrueFalse knappar  TrueFalse knappar TrueFalse knappar
@@ -131,12 +135,37 @@ function displayQuestion() {
       falseButton.textContent = "False";
 
       //event listener !!!
+      trueButton.addEventListener("click", () => {
+        trueButton.style.display = "none";
+        falseButton.style.display = "none";
+        if (quiz[index].correctAnswer === "True") {
+          score++;
+          scoreDisplay.textContent = `${score}`;
+          card.style.backgroundColor = "lightgreen";
+        } else {
+          card.style.backgroundColor = "salmon";
+        }
+      });
+      falseButton.addEventListener("click", () => {
+        trueButton.style.display = "none";
+        falseButton.style.display = "none";
+        if (quiz[index].correctAnswer === "False") {
+          card.style.backgroundColor = "lightgreen";
+          score++;
+          scoreDisplay.textContent = `${score}`;
+        } else {
+          card.style.backgroundColor = "salmon";
+        }
+      });
 
       //Append knappar
       card.appendChild(trueButton);
       card.appendChild(falseButton);
+
       // RADIO BUTTONS RADIO BUTTONS RADIO BUTTONS RADIO BUTTONS  RADIO BUTTONS RADIO BUTTONS RADIO BUTTONS RADIO BUTTONS
     } else if (quiz[index].type === "radio") {
+      let allRadioButtons = []; //Skapar två tomma arrayer för att ta bort dem från korten när de är trycka
+      let labels = [];
       answers.forEach((answer) => {
         let radioButtons = document.createElement("input");
         radioButtons.type = "radio";
@@ -149,10 +178,33 @@ function displayQuestion() {
         card.appendChild(radioButtons);
         card.appendChild(label);
 
+        allRadioButtons.push(radioButtons); //Pushar in varje radiobutton
+        labels.push(label); //Pushar in varje label
+
         //change event !!!
+
+        radioButtons.addEventListener("change", () => {
+          allRadioButtons.forEach((button) => {
+            button.style.display = "none"; // Tar bort forEach radio button
+          });
+          labels.forEach((label) => {
+            label.style.display = "none"; // Tar bort forEach label
+          });
+
+          if (radioButtons.value === quiz[index].correctAnswer) {
+            score++;
+            scoreDisplay.textContent = `${score}`;
+            card.style.backgroundColor = "lightgreen";
+          } else {
+            card.style.backgroundColor = "salmon";
+          }
+        });
       });
       //CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES
     } else if (quiz[index].type === "checkbox") {
+      let correctAnswers = ["Spotted dick", "Baklava"]; //För att enklare kunna nå svaren skapar jag en array med rätt svar
+      let checkboxes = [];
+
       answers.forEach((answer) => {
         let checkBoxes = document.createElement("input");
         checkBoxes.type = "checkbox";
