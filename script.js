@@ -237,7 +237,10 @@ function displayQuestion() {
           }
 
           if (selectedCheckboxes === 2) {
-            if (selectedValues === correctAnswers) {
+            let allCorrect = correctAnswers.every((answer) =>
+              selectedValues.includes(answer)
+            );
+            if (allCorrect && selectedValues.length === correctAnswers.length) {
               score++;
               scoreDisplay.textContent = `${score}`;
               checkBoxes.parentNode.style.backgroundColor = "lightgreen";
@@ -253,12 +256,19 @@ function displayQuestion() {
   introCard.style.display = "none";
 }
 
-// cards.forEach((card, index) => {
-//   //Går igenom varje Card
-//   // card representerar varje .card i loopen
-//   displayQuestion(card, index);
-// });
-
+//   if (selectedCheckboxes === 2) {
+//     let allCorrect = correctAnswers.every((answer) =>
+//       selectedValues.includes(answer)
+//     );
+//     if (selectedValues === correctAnswers) {
+//       score++;
+//       scoreDisplay.textContent = `${score}`;
+//       checkBoxes.parentNode.style.backgroundColor = "lightgreen";
+//     } else {
+//       checkBoxes.parentNode.style.backgroundColor = "salmon";
+//     }
+//   }
+//   console.log(selectedValues, correctAnswers);
 //   {
 //     question:
 //       "Which dessert is known for its layers of sponge cake, custard, and whipped cream?",
