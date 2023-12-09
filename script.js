@@ -120,7 +120,7 @@ function displayQuestion() {
     card.textContent = question + answers;
     console.log(quiz[index]);
 
-    //TrueFalse knappar
+    // TrueFalse knappar  TrueFalse knappar TrueFalse knappar  TrueFalse knappar  TrueFalse knappar TrueFalse knappar
     if (quiz[index].type === "trueFalse") {
       //true
       let trueButton = document.createElement("button");
@@ -135,6 +135,7 @@ function displayQuestion() {
       //Append knappar
       card.appendChild(trueButton);
       card.appendChild(falseButton);
+      // RADIO BUTTONS RADIO BUTTONS RADIO BUTTONS RADIO BUTTONS  RADIO BUTTONS RADIO BUTTONS RADIO BUTTONS RADIO BUTTONS
     } else if (quiz[index].type === "radio") {
       answers.forEach((answer) => {
         let radioButtons = document.createElement("input");
@@ -149,6 +150,23 @@ function displayQuestion() {
         card.appendChild(label);
 
         //change event !!!
+      });
+      //CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES
+    } else if (quiz[index].type === "checkbox") {
+      answers.forEach((answer) => {
+        let checkBoxes = document.createElement("input");
+        checkBoxes.type = "checkbox";
+        checkBoxes.name = `question_${index}`;
+        checkBoxes.value = answer;
+
+        let labelCheckbox = document.createElement("label");
+        labelCheckbox.textContent = answer;
+
+        card.appendChild(checkBoxes);
+        card.appendChild(labelCheckbox);
+        console.log(`question_${index}`);
+
+        //Change event !!!
       });
     }
   });
