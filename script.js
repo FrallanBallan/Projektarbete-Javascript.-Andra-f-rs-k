@@ -75,13 +75,13 @@ const quiz = [
     question:
       "Which dessert is a Russian cake consisting of layers of sponge cake and buttercream?",
     answers: ["Pavlova", "Opera cake", "Napoleon", "Mustig"],
-    correctAnswer: "Opera cake",
+    correctAnswer: ["Opera cake", "Mustig"],
     type: "checkbox",
   },
   {
     question: "What dessert is made from meringue, whipped cream, and fruit?",
     answers: ["Eton mess", "Pavlova", "Opera cake", "Bingus"],
-    correctAnswer: "Pavlova",
+    correctAnswer: ["Pavlova", "Bingus"],
     type: "checkbox",
   },
 ];
@@ -202,8 +202,9 @@ function displayQuestion() {
       });
       //CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES
     } else if (quiz[index].type === "checkbox") {
-      let correctAnswers = ["Spotted dick", "Baklava"]; //För att enklare kunna nå svaren skapar jag en array med rätt svar
-      let checkboxes = [];
+      let selectedCheckboxes = 0; //En array att spara checkboxarna i. Borde gjort array i objektet. Visste inte att det gick.
+      let checkboxesArray = [];
+      let selectedValues = [];
 
       answers.forEach((answer) => {
         let checkBoxes = document.createElement("input");
@@ -216,9 +217,36 @@ function displayQuestion() {
 
         card.appendChild(checkBoxes);
         card.appendChild(labelCheckbox);
+        checkboxesArray.push(checkBoxes);
+        // lägger in i arrayen
+
         console.log(`question_${index}`);
 
-        //Change event !!!
+        // Change event !!!
+        checkBoxes.addEventListener("change", () => {
+          let correctAnswers = quiz[index].correctAnswer;
+          if (checkBoxes.checked) {
+            selectedCheckboxes++;
+            selectedValues.push(checkBoxes.value);
+          } else {
+            selectedCheckboxes--;
+          }
+          if (selectedCheckboxes > 2) {
+            checkBoxes.checked = false;
+            selectedCheckboxes--;
+          }
+
+          if (selectedCheckboxes === 2) {
+            if (selectedCheckboxes === correctAnswers) {
+              score++;
+              scoreDisplay.textContent = `${score}`;
+              checkBoxes.parentNode.style.backgroundColor = "lightgreen";
+            } else {
+              checkBoxes.parentNode.style.backgroundColor = "salmon";
+            }
+          }
+          console.log(selectedCheckboxes, selectedValues);
+        });
       });
     }
   });
