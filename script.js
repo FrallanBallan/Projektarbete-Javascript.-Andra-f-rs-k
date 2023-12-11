@@ -1,39 +1,41 @@
 const quiz = [
   {
     question:
-      "Which dessert is known for its layers of sponge cake, custard, and whipped cream?",
+      "is the semla known for its layers of sponge cake, custard, and whipped cream?",
     answers: ["True", "False"],
     correctAnswer: "True",
     type: "trueFalse",
   },
   {
-    question: "What dessert is made from frozen fruit and sugar?",
-    answers: ["True", "False"],
-    correctAnswer: "False",
-    type: "trueFalse",
-  },
-  {
-    question: "What French dessert is known for its caramelized sugar topping?",
-    answers: ["True", "False"],
-    correctAnswer: "True",
-    type: "trueFalse",
-  },
-  {
-    question:
-      "Which dessert is often associated with New York and consists of a creamy cheese filling on a crust?",
-    answers: ["True", "False"],
-    correctAnswer: "True",
-    type: "trueFalse",
-  },
-  {
-    question: "What Italian dessert translates to 'pick me up'?",
+    question: "Are mondays made from frozen fruit and sugar?",
     answers: ["True", "False"],
     correctAnswer: "False",
     type: "trueFalse",
   },
   {
     question:
-      "What pastry is filled with almond paste and sometimes topped with icing and sliced almonds?",
+      "Frans is French dessert, known for its caramelized sugar topping?",
+    answers: ["True", "False"],
+    correctAnswer: "True",
+    type: "trueFalse",
+  },
+  {
+    question:
+      "Frans is often associated with New York and consists of a creamy cheese filling on a crust?",
+    answers: ["True", "False"],
+    correctAnswer: "True",
+    type: "trueFalse",
+  },
+  {
+    question:
+      "Frans made an Italian dessert translated to 'pick me up'? aka Tiramisu",
+    answers: ["True", "False"],
+    correctAnswer: "False",
+    type: "trueFalse",
+  },
+  {
+    question:
+      "Is Frans filled with almond paste and sometimes topped with icing and sliced almonds?",
     answers: ["True", "False"],
     correctAnswer: "False",
     type: "trueFalse",
@@ -104,13 +106,6 @@ let introCard = document.querySelector(".introCard");
 //Knapp för intro/start + Funktion att gömma
 startButton.addEventListener("click", displayQuestion);
 
-// function startQuiz() {
-//   if (answeredQuestions < 12) {
-//     displayQuestion();
-//   } else {
-//     alert("BAOM");
-//   }
-// }
 //Medel
 //Hämtar alla card element
 let cards = document.querySelectorAll(".card");
@@ -209,7 +204,7 @@ function displayQuestion() {
           labels.forEach((label) => {
             label.style.display = "none"; // Tar bort forEach label
           });
-
+          // Make funk efter if satsa
           if (radioButtons.value === quiz[index].correctAnswer) {
             score++;
             answeredQuestions++;
@@ -294,18 +289,42 @@ function checkQuestions() {
   }
 }
 
+//Reseta quiz
+function resetQuiz() {
+  score = 0;
+  answeredQuestions = 0;
+  let scoreDisplay = document.querySelector("#scoreDisplay");
+  scoreDisplay.innerText = 0;
+
+  let resultDiv = document.querySelector(".resultDiv");
+  if (resultDiv) {
+    // Om result div finns i bodyn. Defensive check
+    body.removeChild(resultDiv);
+  }
+  cards.forEach((card) => {
+    card.textContent = "";
+    card.style.backgroundColor = "";
+    console.log(card);
+  });
+  displayQuestion();
+}
+
 function displayResults() {
+  let retryButton = document.createElement("button");
+  retryButton.innerText = "Play again?";
+  retryButton.addEventListener("click", resetQuiz);
   let resultDiv = document.createElement("div");
   resultDiv.classList.add("resultDiv");
   resultDiv.textContent = "Your score: " + score;
-  if (score === quiz.length * 0.5) {
-    resultDiv.style.background = "crimson";
-  } else if (score === quiz.length * 0.75) {
+  if (score <= quiz.length * 0.5) {
+    resultDiv.style.background = "salmon";
+  } else if (score <= quiz.length * 0.75) {
     resultDiv.style.background = "orange";
   } else {
-    resultDiv.style.background = "green";
+    resultDiv.style.background = "lightgreen";
   }
   body.appendChild(resultDiv);
+  resultDiv.appendChild(retryButton);
 }
 //   if (selectedCheckboxes === 2) {
 //     let allCorrect = correctAnswers.every((answer) =>

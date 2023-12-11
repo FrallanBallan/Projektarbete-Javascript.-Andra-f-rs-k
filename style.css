@@ -9,6 +9,7 @@ html {
 }
 
 body {
+
     font-size: 1.6rem;
     background: white;
     color: black;
@@ -81,6 +82,24 @@ h1 {
     z-index: 0;
     word-wrap: break-word;
     
+}
+
+.resultDiv {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: white;
+
+    /* padding-top: 8rem; */
+    position: absolute;
+    height: 20rem;
+    top: 2rem;
+    left: 2rem;
+    width: 20rem;
+    border-radius: 100px; 
 }
 
 #startButton {
