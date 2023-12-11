@@ -104,6 +104,13 @@ let introCard = document.querySelector(".introCard");
 //Knapp för intro/start + Funktion att gömma
 startButton.addEventListener("click", displayQuestion);
 
+// function startQuiz() {
+//   if (answeredQuestions < 12) {
+//     displayQuestion();
+//   } else {
+//     alert("BAOM");
+//   }
+// }
 //Medel
 //Hämtar alla card element
 let cards = document.querySelectorAll(".card");
@@ -114,6 +121,7 @@ quiz.forEach((question, index) => {
 
 //Globala variablar
 let score = 0;
+let answeredQuestions = 0;
 let scoreDisplay = document.querySelector("#scoreDisplay");
 
 function displayQuestion() {
@@ -140,10 +148,15 @@ function displayQuestion() {
         falseButton.style.display = "none";
         if (quiz[index].correctAnswer === "True") {
           score++;
+          answeredQuestions++;
           scoreDisplay.textContent = `${score}`;
           card.style.backgroundColor = "lightgreen";
         } else {
           card.style.backgroundColor = "salmon";
+          answeredQuestions++;
+        }
+        if (answeredQuestions >= 12) {
+          displayResults();
         }
       });
       falseButton.addEventListener("click", () => {
@@ -152,9 +165,15 @@ function displayQuestion() {
         if (quiz[index].correctAnswer === "False") {
           card.style.backgroundColor = "lightgreen";
           score++;
+          answeredQuestions++;
           scoreDisplay.textContent = `${score}`;
         } else {
           card.style.backgroundColor = "salmon";
+          answeredQuestions++;
+        }
+        console.log(answeredQuestions, score);
+        if (answeredQuestions >= 12) {
+          displayResults();
         }
       });
 
@@ -193,10 +212,16 @@ function displayQuestion() {
 
           if (radioButtons.value === quiz[index].correctAnswer) {
             score++;
+            answeredQuestions++;
             scoreDisplay.textContent = `${score}`;
             card.style.backgroundColor = "lightgreen";
           } else {
             card.style.backgroundColor = "salmon";
+            answeredQuestions++;
+          }
+          console.log(answeredQuestions, score);
+          if (answeredQuestions >= 12) {
+            displayResults();
           }
         });
       });
@@ -223,8 +248,9 @@ function displayQuestion() {
         console.log(`question_${index}`);
 
         // Change event !!!
-        checkBoxes.addEventListener("change", () => {
+        checkBoxes.addEventListener("click", () => {
           let correctAnswers = quiz[index].correctAnswer;
+          console.log(correctAnswers);
           if (checkBoxes.checked) {
             selectedCheckboxes++;
             selectedValues.push(checkBoxes.value);
@@ -242,20 +268,45 @@ function displayQuestion() {
             );
             if (allCorrect && selectedValues.length === correctAnswers.length) {
               score++;
+              answeredQuestions++;
               scoreDisplay.textContent = `${score}`;
               checkBoxes.parentNode.style.backgroundColor = "lightgreen";
             } else {
               checkBoxes.parentNode.style.backgroundColor = "salmon";
+              answeredQuestions++;
             }
           }
-          console.log(selectedValues, correctAnswers);
+          console.log(selectedValues, correctAnswers, answeredQuestions, score);
+          if (answeredQuestions >= 12) {
+            displayResults();
+          }
         });
       });
     }
   });
   introCard.style.display = "none";
+  // checkQuestions();
 }
 
+function checkQuestions() {
+  if (answeredQuestions >= 12) {
+    displayResults();
+  }
+}
+
+function displayResults() {
+  let resultDiv = document.createElement("div");
+  resultDiv.classList.add("resultDiv");
+  resultDiv.textContent = "Your score: " + score;
+  if (score === quiz.length * 0.5) {
+    resultDiv.style.background = "crimson";
+  } else if (score === quiz.length * 0.75) {
+    resultDiv.style.background = "orange";
+  } else {
+    resultDiv.style.background = "green";
+  }
+  body.appendChild(resultDiv);
+}
 //   if (selectedCheckboxes === 2) {
 //     let allCorrect = correctAnswers.every((answer) =>
 //       selectedValues.includes(answer)
