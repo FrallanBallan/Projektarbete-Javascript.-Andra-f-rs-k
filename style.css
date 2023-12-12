@@ -35,6 +35,8 @@ h2 {
 }
 
 .introCard {
+    font-size: 2rem;
+    
     background: cornflowerblue;
     border: solid lightblue 2px;
     position: fixed;

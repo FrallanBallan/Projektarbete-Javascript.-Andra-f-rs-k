@@ -104,7 +104,10 @@ let startButton = document.querySelector("#startButton");
 let introCard = document.querySelector(".introCard");
 
 //Knapp för intro/start + Funktion att gömma
-startButton.addEventListener("click", displayQuestion);
+startButton.addEventListener("click", function () {
+  displayQuestion();
+  playAudio();
+});
 
 //Medel
 //Hämtar alla card element
@@ -143,8 +146,10 @@ function displayQuestion() {
         falseButton.style.display = "none";
         if (quiz[index].correctAnswer === "True") {
           Correct();
+          yesAudio();
           card.style.backgroundColor = "lightgreen";
         } else {
+          noAudio();
           card.style.backgroundColor = "salmon";
           answeredQuestions++;
         }
@@ -157,8 +162,10 @@ function displayQuestion() {
         falseButton.style.display = "none";
         if (quiz[index].correctAnswer === "False") {
           Correct();
+          yesAudio();
           card.style.backgroundColor = "lightgreen";
         } else {
+          noAudio();
           card.style.backgroundColor = "salmon";
           answeredQuestions++;
         }
@@ -203,8 +210,10 @@ function displayQuestion() {
           // Make funk efter if satsa
           if (radioButtons.value === quiz[index].correctAnswer) {
             Correct();
+            yesAudio();
             card.style.backgroundColor = "lightgreen";
           } else {
+            noAudio();
             card.style.backgroundColor = "salmon";
             answeredQuestions++;
           }
@@ -257,8 +266,10 @@ function displayQuestion() {
             );
             if (allCorrect && selectedValues.length === correctAnswers.length) {
               Correct();
+              yesAudio();
               checkBoxes.parentNode.style.backgroundColor = "lightgreen";
             } else {
+              noAudio();
               checkBoxes.parentNode.style.backgroundColor = "salmon";
               answeredQuestions++;
             }
@@ -346,6 +357,41 @@ function movingDivTest() {
     resultDiv.style.left = leftPositon + "px";
   }, 10);
 }
+
+function playAudio() {
+  audio.play();
+}
+function yesAudio() {
+  let audio = new Audio("/.mps/Mac%20Screaming%20Yes.mp3");
+  audio.volume = 0.1;
+  audio.play();
+}
+function noAudio() {
+  let audio = new Audio(
+    "/.mps/Spiderman%20Screaming%20_No!_%20Source%20-%20Spiderman_%20The%20Animated%20Series.mp3"
+  );
+  audio.volume = 0.1;
+  audio.play();
+}
+
+function stopAudio() {
+  if (audio) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+}
+
+//Stoppa ljudet
+let audio = new Audio(
+  "/.mps/Walter%20Murphy%20-%20A%20Fifth%20Of%20Beethoven%20%5BHQ%5D.mp3"
+);
+audio.volume = 0.1;
+document.querySelector("#stopAudio").addEventListener("click", stopAudio);
+
+// function stopAudio() {
+//   audio.pause();
+//   audio.currentTime = 0;
+// }
 //   if (selectedCheckboxes === 2) {
 //     let allCorrect = correctAnswers.every((answer) =>
 //       selectedValues.includes(answer)
