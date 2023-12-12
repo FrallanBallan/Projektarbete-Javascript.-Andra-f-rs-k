@@ -347,10 +347,10 @@ function movingDivTest() {
 
   let interval = setInterval(() => {
     topPositon += 1;
-    leftPositon += 1;
-    if (topPositon > 700) {
+    leftPositon += 6;
+    if (topPositon > 200) {
       topPositon -= 1;
-      leftPositon -= 1;
+      leftPositon -= 6;
     }
 
     resultDiv.style.top = topPositon + "px";
@@ -386,7 +386,15 @@ let audio = new Audio(
   "/.mps/Walter%20Murphy%20-%20A%20Fifth%20Of%20Beethoven%20%5BHQ%5D.mp3"
 );
 audio.volume = 0.1;
-document.querySelector("#stopAudio").addEventListener("click", stopAudio);
+document.querySelector("#stopAudio").addEventListener("click", toggleAudio);
+
+function toggleAudio() {
+  if (audio.paused) {
+    audio.play();
+  } else {
+    audio.pause();
+  }
+}
 
 // function stopAudio() {
 //   audio.pause();
