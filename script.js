@@ -142,9 +142,7 @@ function displayQuestion() {
         trueButton.style.display = "none";
         falseButton.style.display = "none";
         if (quiz[index].correctAnswer === "True") {
-          score++;
-          answeredQuestions++;
-          scoreDisplay.textContent = `${score}`;
+          Correct();
           card.style.backgroundColor = "lightgreen";
         } else {
           card.style.backgroundColor = "salmon";
@@ -158,10 +156,8 @@ function displayQuestion() {
         trueButton.style.display = "none";
         falseButton.style.display = "none";
         if (quiz[index].correctAnswer === "False") {
+          Correct();
           card.style.backgroundColor = "lightgreen";
-          score++;
-          answeredQuestions++;
-          scoreDisplay.textContent = `${score}`;
         } else {
           card.style.backgroundColor = "salmon";
           answeredQuestions++;
@@ -206,9 +202,7 @@ function displayQuestion() {
           });
           // Make funk efter if satsa
           if (radioButtons.value === quiz[index].correctAnswer) {
-            score++;
-            answeredQuestions++;
-            scoreDisplay.textContent = `${score}`;
+            Correct();
             card.style.backgroundColor = "lightgreen";
           } else {
             card.style.backgroundColor = "salmon";
@@ -262,9 +256,7 @@ function displayQuestion() {
               selectedValues.includes(answer)
             );
             if (allCorrect && selectedValues.length === correctAnswers.length) {
-              score++;
-              answeredQuestions++;
-              scoreDisplay.textContent = `${score}`;
+              Correct();
               checkBoxes.parentNode.style.backgroundColor = "lightgreen";
             } else {
               checkBoxes.parentNode.style.backgroundColor = "salmon";
@@ -282,6 +274,12 @@ function displayQuestion() {
   introCard.style.display = "none";
   // checkQuestions();
 }
+function Correct() {
+  score++;
+  answeredQuestions++;
+  scoreDisplay.textContent = `${score}`;
+}
+function False() {}
 
 function checkQuestions() {
   if (answeredQuestions >= 12) {
