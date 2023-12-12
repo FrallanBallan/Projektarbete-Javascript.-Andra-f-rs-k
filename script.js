@@ -76,8 +76,8 @@ const quiz = [
   {
     question:
       "Which dessert is a Russian cake consisting of layers of sponge cake and buttercream?",
-    answers: ["Pavlova", "Opera cake", "Napoleon", "Mustig"],
-    correctAnswer: ["Opera cake", "Mustig"],
+    answers: ["Pavlova", "Opera cake", "Napoleon", "Spoingus"],
+    correctAnswer: ["Opera cake", "Spoingus"],
     type: "checkbox",
   },
   {
@@ -189,8 +189,8 @@ function displayQuestion() {
         let label = document.createElement("label");
         label.textContent = answer;
 
-        card.appendChild(radioButtons);
         card.appendChild(label);
+        card.appendChild(radioButtons);
 
         allRadioButtons.push(radioButtons); //Pushar in varje radiobutton
         labels.push(label); //Pushar in varje label
@@ -235,8 +235,8 @@ function displayQuestion() {
         let labelCheckbox = document.createElement("label");
         labelCheckbox.textContent = answer;
 
-        card.appendChild(checkBoxes);
         card.appendChild(labelCheckbox);
+        card.appendChild(checkBoxes);
 
         // lägger in i arrayen
 
@@ -325,6 +325,28 @@ function displayResults() {
   }
   body.appendChild(resultDiv);
   resultDiv.appendChild(retryButton);
+  movingDivTest();
+}
+
+function movingDivTest() {
+  let resultDiv = document.querySelector(".resultDiv");
+  let topPositon = 0;
+  let leftPositon = 0;
+  resultDiv.style.position = "absolute";
+  resultDiv.style.top = topPositon + "px";
+  resultDiv.style.left = leftPositon + "px";
+
+  let interval = setInterval(() => {
+    topPositon += 1;
+    leftPositon += 1;
+    if (topPositon > 700) {
+      topPositon -= 1;
+      leftPositon -= 1;
+    }
+
+    resultDiv.style.top = topPositon + "px";
+    resultDiv.style.left = leftPositon + "px";
+  }, 10);
 }
 //   if (selectedCheckboxes === 2) {
 //     let allCorrect = correctAnswers.every((answer) =>
