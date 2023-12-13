@@ -239,8 +239,8 @@ function displayQuestion() {
       //CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES CHECKBOXES
     } else if (quiz[index].type === "checkbox") {
       let selectedCheckboxes = 0; //En array att spara checkboxarna i. Borde gjort array i objektet. Visste inte att det gick.
-
       let selectedValues = [];
+      let questionLocked = false; //För att inte tillåta att checka av boxar
 
       answers.forEach((answer) => {
         let checkBoxes = document.createElement("input");
@@ -263,16 +263,20 @@ function displayQuestion() {
           //Skapar en array som lyssnar på alla checkboxar (Tar in alla checkboxars värde)
           let correctAnswers = quiz[index].correctAnswer;
           console.log(correctAnswers);
-          if (checkBoxes.checked) {
-            selectedCheckboxes++;
-            selectedValues.push(checkBoxes.value);
-          } else {
-            selectedCheckboxes--;
+          //Kollar först om checkboxen är False. alltså inte låste än. och koden innanför kommer fortsätta
+          if (!questionLocked) {
+            if (checkBoxes.checked) {
+              selectedCheckboxes++;
+              selectedValues.push(checkBoxes.value);
+            } else {
+              selectedCheckboxes--;
+            }
+            if (selectedCheckboxes > 2) {
+              checkBoxes.checked = false;
+              selectedCheckboxes--;
+            }
           }
-          if (selectedCheckboxes > 2) {
-            checkBoxes.checked = false;
-            selectedCheckboxes--;
-          }
+
           //Jämför selectedCheckboxes med selectedValues och sedan returnerar true eller false med (Includes)
           if (selectedCheckboxes === 2) {
             //Kollar sant eller falskt
@@ -289,6 +293,14 @@ function displayQuestion() {
               checkBoxes.parentNode.style.backgroundColor = "salmon";
               answeredQuestions++;
             }
+            questionLocked = true;
+            // Disabla alla checkboxar när två väl tryckts ned. Det ända sättet att motverka mina misstag
+            //Går igenom alla checkboxar och gör dem true - DISABLED!!!
+            document
+              .querySelectorAll(`input[name="question_${index}"]`)
+              .forEach((checkbox) => {
+                checkbox.disabled = true;
+              });
           }
           console.log(selectedValues, correctAnswers, answeredQuestions, score);
           if (answeredQuestions >= 12) {
