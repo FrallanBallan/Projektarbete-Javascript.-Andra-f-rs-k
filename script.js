@@ -75,13 +75,14 @@ const quiz = [
   },
   {
     question:
-      "Which dessert is a Russian cake consisting of layers of sponge cake and buttercream?",
+      "Which dessert is a Russian cake consisting of layers of sponge cake and buttercream? + which one is a cat?",
     answers: ["Pavlova", "Opera cake", "Napoleon", "Spoingus"],
     correctAnswer: ["Opera cake", "Spoingus"],
     type: "checkbox",
   },
   {
-    question: "What dessert is made from meringue, whipped cream, and fruit?",
+    question:
+      "What dessert is made from meringue, whipped cream, and fruit? + which one is a cat?",
     answers: ["Eton mess", "Pavlova", "Opera cake", "Bingus"],
     correctAnswer: ["Pavlova", "Bingus"],
     type: "checkbox",
