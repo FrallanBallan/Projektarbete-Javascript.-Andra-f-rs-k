@@ -122,10 +122,15 @@ quiz.forEach((question, index) => {
 let score = 0;
 let answeredQuestions = 0;
 let scoreDisplay = document.querySelector("#scoreDisplay");
+let endDiv = document.querySelector(".endDiv");
 
+// Funktion för att visa frågor i quiz
 function displayQuestion() {
+  //Loopa igenom varje card(fråga i quizet)
   cards.forEach((card, index) => {
+    //Loggar för att se card och index
     console.log(card, index);
+    //Få frågan och svaret för specifika indexet (objectet) i arrayn
     let question = quiz[index].question;
     let answers = quiz[index].answers;
     card.textContent = question;
@@ -184,6 +189,8 @@ function displayQuestion() {
     } else if (quiz[index].type === "radio") {
       let allRadioButtons = []; //Skapar två tomma arrayer för att ta bort dem från korten när de är trycka
       let labels = [];
+
+      //Loopa igenom varje fråga skapar jag radio buttons
       answers.forEach((answer) => {
         let radioButtons = document.createElement("input");
         radioButtons.type = "radio";
@@ -248,6 +255,7 @@ function displayQuestion() {
 
         // Change event !!!
         checkBoxes.addEventListener("click", () => {
+          //Skapar en array som lyssnar på alla checkboxar (Tar in alla checkboxars värde)
           let correctAnswers = quiz[index].correctAnswer;
           console.log(correctAnswers);
           if (checkBoxes.checked) {
@@ -260,11 +268,13 @@ function displayQuestion() {
             checkBoxes.checked = false;
             selectedCheckboxes--;
           }
-
+          //Jämför selectedCheckboxes med selectedValues och sedan returnerar true eller false med (Includes)
           if (selectedCheckboxes === 2) {
+            //Kollar sant eller falskt
             let allCorrect = correctAnswers.every((answer) =>
               selectedValues.includes(answer)
             );
+            //Om allCorrect är true och selectedValues.length = 2 och stämmer överens med correctAnswers.length = är 2 alltid
             if (allCorrect && selectedValues.length === correctAnswers.length) {
               Correct();
               yesAudio();
@@ -277,7 +287,7 @@ function displayQuestion() {
           }
           console.log(selectedValues, correctAnswers, answeredQuestions, score);
           if (answeredQuestions >= 12) {
-            displayResults();
+            endQuiz();
           }
         });
       });
@@ -286,6 +296,7 @@ function displayQuestion() {
   introCard.style.display = "none";
   // checkQuestions();
 }
+//Funktion som hanterar korrekta svar
 function Correct() {
   score++;
   answeredQuestions++;
@@ -316,6 +327,7 @@ function resetQuiz() {
     card.style.backgroundColor = "";
     console.log(card);
   });
+
   displayQuestion();
 }
 
@@ -349,7 +361,7 @@ function movingDivTest() {
   let interval = setInterval(() => {
     topPositon += 1;
     leftPositon += 6;
-    if (topPositon > 200) {
+    if (topPositon > 300) {
       topPositon -= 1;
       leftPositon -= 6;
     }
@@ -395,6 +407,18 @@ function toggleAudio() {
   } else {
     audio.pause();
   }
+}
+
+function endQuiz() {
+  let endQuizBtn = document.createElement("button");
+  endQuizBtn.classList.add("endQuizBtn");
+  endQuizBtn.innerText = "End quiz to see result";
+  endDiv.append(endQuizBtn);
+  endQuizBtn.addEventListener("click", () => {
+    displayResults();
+
+    endQuizBtn.remove();
+  });
 }
 
 // function stopAudio() {
