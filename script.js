@@ -123,6 +123,15 @@ let score = 0;
 let answeredQuestions = 0;
 let scoreDisplay = document.querySelector("#scoreDisplay");
 let endDiv = document.querySelector(".endDiv");
+// LJUD
+let NOaudio = new Audio(
+  "/.mps/Spiderman%20Screaming%20_No!_%20Source%20-%20Spiderman_%20The%20Animated%20Series.mp3"
+);
+let YESaudio = new Audio("/.mps/Mac%20Screaming%20Yes.mp3");
+let audio = new Audio(
+  "/.mps/Walter%20Murphy%20-%20A%20Fifth%20Of%20Beethoven%20%5BHQ%5D.mp3"
+);
+audio.volume = 0.1;
 
 // Funktion för att visa frågor i quiz
 function displayQuestion() {
@@ -375,16 +384,12 @@ function playAudio() {
   audio.play();
 }
 function yesAudio() {
-  let audio = new Audio("/.mps/Mac%20Screaming%20Yes.mp3");
-  audio.volume = 0.1;
-  audio.play();
+  YESaudio.volume = 0.1;
+  YESaudio.play();
 }
 function noAudio() {
-  let audio = new Audio(
-    "/.mps/Spiderman%20Screaming%20_No!_%20Source%20-%20Spiderman_%20The%20Animated%20Series.mp3"
-  );
-  audio.volume = 0.1;
-  audio.play();
+  NOaudio.volume = 0.1;
+  NOaudio.play();
 }
 
 function stopAudio() {
@@ -395,10 +400,7 @@ function stopAudio() {
 }
 
 //Stoppa ljudet
-let audio = new Audio(
-  "/.mps/Walter%20Murphy%20-%20A%20Fifth%20Of%20Beethoven%20%5BHQ%5D.mp3"
-);
-audio.volume = 0.1;
+
 document.querySelector("#stopAudio").addEventListener("click", toggleAudio);
 
 function toggleAudio() {
