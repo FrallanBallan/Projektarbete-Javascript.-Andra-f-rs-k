@@ -377,10 +377,10 @@ function movingDivTest() {
 
   let interval = setInterval(() => {
     topPositon += 1;
-    leftPositon += 6;
-    if (topPositon > 300) {
+    leftPositon += 3;
+    if (topPositon > 275) {
       topPositon -= 1;
-      leftPositon -= 6;
+      leftPositon -= 3;
     }
 
     resultDiv.style.top = topPositon + "px";
