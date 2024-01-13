@@ -280,11 +280,13 @@ h1 {
     flex-direction: column;
     /* gap: 2rem; */
     height: 100vh;
+    z-index: 0;
     
     }
 .card {
     display: flex;
     font-size: 1rem;
+    z-index: 0;
             
     /* overflow: hidden; */
     padding: 0.5rem;
