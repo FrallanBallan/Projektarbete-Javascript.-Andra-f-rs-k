@@ -311,6 +311,7 @@ function displayQuestion() {
     }
   });
   introCard.style.display = "none";
+  introCard.remove();
   // checkQuestions();
 }
 //Funktion som hanterar korrekta svar
