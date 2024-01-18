@@ -318,6 +318,7 @@ function displayQuestion() {
 function Correct() {
   score++;
   answeredQuestions++;
+  // scoreDisplay.style.display = "block";
   scoreDisplay.textContent = `${score}`;
 }
 function False() {}
